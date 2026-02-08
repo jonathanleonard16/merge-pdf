@@ -11,7 +11,7 @@ use std::{collections::BTreeMap, path::PathBuf};
 #[command(about = "Merges multiple PDFs into one", long_about = None)]
 struct Cli {
     #[arg(short, long)]
-    name: String,
+    name: PathBuf,
 
     #[arg(required = true)]
     files: Vec<PathBuf>,
@@ -180,9 +180,7 @@ fn main() -> std::io::Result<()> {
 
     println!("Saving as: {:?}", cli.name);
 
-    document
-        .save(PathBuf::from(format!("results/{}", cli.name)))
-        .unwrap();
+    document.save(cli.name).unwrap();
 
     Ok(())
 }
